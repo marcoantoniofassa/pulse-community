@@ -35,7 +35,7 @@ final class KeystrokeInjector {
             return
         }
 
-        ksLog("Keyboard operation")
+        ksLog("type() called")
 
         let source = CGEventSource(stateID: .hidSystemState)
 
@@ -66,7 +66,7 @@ final class KeystrokeInjector {
             return
         }
 
-        ksLog("Keyboard operation")
+        ksLog("correct: applying backspaces")
 
         let source = CGEventSource(stateID: .hidSystemState)
 
@@ -106,7 +106,7 @@ final class KeystrokeInjector {
         // accented characters (a, e, c), punctuation, and Unicode natively.
         guard let keyDown = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
               let keyUp = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else {
-            ksLog("Keyboard operation")
+            ksLog("FAIL: CGEvent creation failed")
             return
         }
 

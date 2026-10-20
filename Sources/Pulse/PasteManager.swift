@@ -33,7 +33,7 @@ final class PasteManager {
     }
 
     func paste(text: String, toApp appName: String) {
-        debugLog("Paste operation")
+        debugLog("paste() called")
 
         // Check accessibility first
         let trusted = AXIsProcessTrusted()
@@ -44,19 +44,16 @@ final class PasteManager {
         let ok = NSPasteboard.general.setString(text, forType: .string)
         debugLog("Clipboard set: \(ok)")
 
-        // Verify clipboard
-        debugLog("Paste operation")
-
         // 2. Reactivate original app
         var activated = false
         if !appName.isEmpty {
             let apps = NSWorkspace.shared.runningApplications
             if let app = apps.first(where: { $0.localizedName == appName }) {
                 activated = app.activate()
-                debugLog("Paste operation")
+                debugLog("Target activated: \(activated)")
             } else {
                 // Try bundleIdentifier match
-                debugLog("Paste operation")
+                debugLog("Target app unavailable")
             }
         } else {
             debugLog("appName is empty — skipping activation")
